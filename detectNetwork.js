@@ -31,6 +31,15 @@ var detectNetwork = function(cardNumber) {
   			return "Visa"
   		}
   	}
+  	else if (cardNumber.length === 16 || cardNumber.length === 19) {
+  		if (cardNumber.slice(0,4) === "6011" || cardNumber.slice(0,2) === "65" || (cardNumber.slice(0,3) >= "644" && cardNumber.slice(0,3) <= "649"))
+  			return "Discover";
+  	}
+  	else if (cardNumber.length >= 12 && cardNumber.length <=19) {
+  		if (cardNumber.slice(0,4) === "5018" || cardNumber.slice(0,4) === "5020" || cardNumber.slice(0,4) === "5038" || cardNumber.slice(0,4) === "6304") {
+  			return "Maestro"
+  		}
+  	}
   	else {
    		return "Not valid Credit card."; 
   	}
