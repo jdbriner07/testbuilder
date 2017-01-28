@@ -21,9 +21,18 @@ var detectNetwork = function(cardNumber) {
       		return "American Express"
     	}
   	}
+  	else if (cardNumber[0] === "5") {
+  		if (cardNumber[1] >= "1" && cardNumber[1] <= "5" && cardNumber.length === 16){
+  			return "MasterCard"
+  		}
+  	}
+  	else if (cardNumber[0] === "4") {
+  		if (cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19) {
+  			return "Visa"
+  		}
+  	}
   	else {
-   		return "Not an American Express or Diner's Club card."; 
+   		return "Not valid Credit card."; 
   	}
 };
-
 
