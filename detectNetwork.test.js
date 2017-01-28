@@ -220,28 +220,31 @@ describe('should support Switch', function() {
   for (var length = 16; length <= 19; length++) {
     if (length !== 17){
       (function(length){
-        it('has a prefix of 4903 and a length of ' + lenght, function(){
+        it('has a prefix of 4903 and a length of ' + length, function(){
           assert.isTrue(detectNetwork(JSON.stringify(4903 * Math.pow(10,length-4)))===("Switch"));
         })
-        it('has a prefix of 4905 and a length of ' + lenght, function(){
+        it('has a prefix of 4905 and a length of ' + length, function(){
           assert.isTrue(detectNetwork(JSON.stringify(4905 * Math.pow(10,length-4)))===("Switch"));
         })
-        it('has a prefix of 4911 and a length of ' + lenght, function(){
+        it('has a prefix of 4911 and a length of ' + length, function(){
           assert.isTrue(detectNetwork(JSON.stringify(4911 * Math.pow(10,length-4)))===("Switch"));
         })
-        it('has a prefix of 4936 and a length of ' + lenght, function(){
+        it('has a prefix of 4936 and a length of ' + length, function(){
           assert.isTrue(detectNetwork(JSON.stringify(4936 * Math.pow(10,length-4)))===("Switch"));
         })
-        it('has a prefix of 6333 and a length of ' + lenght, function(){
+        it('has a prefix of 6333 and a length of ' + length, function(){
           assert.isTrue(detectNetwork(JSON.stringify(6333 * Math.pow(10,length-4)))===("Switch"));
         })
-        it('has a prefix of 6759 and a length of ' + lenght, function(){
+        it('has a prefix of 6759 and a length of ' + length, function(){
           assert.isTrue(detectNetwork(JSON.stringify(6759 * Math.pow(10,length-4)))===("Switch"));
         })
-        it('has a prefix of 633110 and a length of ' + lenght, function(){
+        it('has a prefix of 633110 and a length of ' + length, function(){
           assert.isTrue(detectNetwork(JSON.stringify(633110 * Math.pow(10,length-6)))===("Switch"));
         })
-      })
+        it('has a prefix of 564182 and a length of ' + length, function(){
+          assert.isTrue(detectNetwork(JSON.stringify(564182 * Math.pow(10,length-6)))===("Switch"));
+        })
+      })(length)
     }
   }
 })

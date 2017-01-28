@@ -18,7 +18,7 @@ var detectNetwork = function(cardNumber) {
 			return "China UnionPay";
 		}
 	}
-	if (cardNumber.slice(0,4) === "4903" || cardNumber.slice(0,4) === "4905" || cardNumber.slice(0,4) === "4911" || cardNumber.slice(0,4) === "4936" || cardNumber.slice(0,4) === "6333" || cardNumber.slice(0,4)==="6759" || cardNumber.slice(0,6) === "633110") {
+	if (cardNumber.slice(0,4) === "4903" || cardNumber.slice(0,4) === "4905" || cardNumber.slice(0,4) === "4911" || cardNumber.slice(0,4) === "4936" || cardNumber.slice(0,4) === "6333" || cardNumber.slice(0,4)==="6759" || cardNumber.slice(0,6) === "633110" || cardNumber.slice(0,6) ==="564182") {
 		if (cardNumber.length === 16 || cardNumber.length === 18 || cardNumber.length === 19) {
 			return "Switch";
 		} 
