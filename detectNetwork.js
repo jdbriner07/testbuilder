@@ -13,35 +13,43 @@ var detectNetwork = function(cardNumber) {
   // The American Express network always starts with a 34 or 37 and is 15 digits long
 
   // Once you've read this, go ahead and try to implement this function, then return to the console.
+	if((cardNumber.slice(0,6) >=622126 && cardNumber.slice(0,6) <= 622925) || (cardNumber.slice(0,3) >=624 && cardNumber.slice(0,3) <=626) || (cardNumber.slice(0,4) >=6282 && cardNumber.slice(0,4) <=6288)) {
+		if (cardNumber.length >=16 && cardNumber.length <= 19) {
+			return "China UnionPay";
+		}
+	}
+	if (cardNumber.slice(0,4) === "4903" || cardNumber.slice(0,4) === "4905" || cardNumber.slice(0,4) === "4911" || cardNumber.slice(0,4) === "4936" || cardNumber.slice(0,4) === "6333" || cardNumber.slice(0,4)==="6759" || cardNumber.slice(0,6) === "633110") {
+		if (cardNumber.length === 16 || cardNumber.length === 18 || cardNumber.length === 19) {
+			return "Switch";
+		} 
+	}
 	if (cardNumber[0] === "3") {
-    	if ((cardNumber[1] === "8" || cardNumber[1] === "9") && cardNumber.length === 14) {
+		if ((cardNumber[1] === "8" || cardNumber[1] === "9") && cardNumber.length === 14) {
       		return "Diner's Club";
     	}
-    	else if ((cardNumber[1] === "4" || cardNumber[1] === "7") && cardNumber.length ===15) {
+    	if ((cardNumber[1] === "4" || cardNumber[1] === "7") && cardNumber.length ===15) {
       		return "American Express"
     	}
   	}
-  	else if (cardNumber[0] === "5") {
+  	if (cardNumber[0] === "5") {
   		if (cardNumber[1] >= "1" && cardNumber[1] <= "5" && cardNumber.length === 16){
   			return "MasterCard"
   		}
   	}
-  	else if (cardNumber[0] === "4") {
+  	if (cardNumber[0] === "4") {
   		if (cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19) {
   			return "Visa"
   		}
   	}
-  	else if (cardNumber.length === 16 || cardNumber.length === 19) {
+  	if (cardNumber.length === 16 || cardNumber.length === 19) {
   		if (cardNumber.slice(0,4) === "6011" || cardNumber.slice(0,2) === "65" || (cardNumber.slice(0,3) >= "644" && cardNumber.slice(0,3) <= "649"))
   			return "Discover";
   	}
-  	else if (cardNumber.length >= 12 && cardNumber.length <=19) {
+  	if (cardNumber.length >= 12 && cardNumber.length <=19) {
   		if (cardNumber.slice(0,4) === "5018" || cardNumber.slice(0,4) === "5020" || cardNumber.slice(0,4) === "5038" || cardNumber.slice(0,4) === "6304") {
   			return "Maestro"
   		}
   	}
-  	else {
    		return "Not valid Credit card."; 
-  	}
 };
 

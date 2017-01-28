@@ -33,7 +33,7 @@ describe('Introduction to Mocha Tests - READ ME FIRST', function() {
   // A test should only fail if the expected behavior doesn't match the actual.
   it('Throws an error when expected behavior does not match actual behavior', function() {
     var even = function(num){
-      return num/2 === 0;
+      return num%2 === 0;
     }
 
     if(even(10) !== true) {
@@ -53,7 +53,7 @@ describe('Diner\'s Club', function() {
   });
 
   it('has a prefix of 39 and a length of 14', function() {
-    if (detectNetwork('3934567890123') !== 'Diner\'s Club') {
+    if (detectNetwork('39345678901230') !== 'Diner\'s Club') {
       throw new Error('Test failed');
     }
  
@@ -64,7 +64,7 @@ describe('American Express', function() {
   // It can get annoying to keep typing the if/throw, so here is a
   // helper function to throw an error if the input statement isn't true. 
   var assert = function(isTrue) {
-    if(isTrue) {
+    if(!isTrue) {
       throw new Error('Test failed');
     }
  
@@ -104,18 +104,18 @@ describe('MasterCard', function() {
   // Expect syntax is one way to do this, but there are others. 
   // If you want to know more, check out the documentation. 
   //   http://chaijs.com/api/bdd/
-  var expect = chai.expect;
+  var should = chai.should();
  
   it("Has a prefix of 51 and a length of 16", function() {
-    expect(detectNetwork('5112345678901234')).to.equal('MasterCard');
+    detectNetwork('5112345678901234').should.equal('MasterCard');
   });
  
   it("Has a prefix of 52 and a length of 16", function() {
-    expect(detectNetwork('5212345678901234')).to.equal('MasterCard');
+    detectNetwork('5212345678901234').should.equal('MasterCard');
   });
  
   it("Has a prefix of 53 and a length of 16", function() {
-    expect(detectNetwork('5312345678901234')).to.equal('MasterCard');
+    detectNetwork('5312345678901234').should.equal('MasterCard');
   });
  
 
@@ -126,7 +126,6 @@ describe('MasterCard', function() {
   // and should, but that's just for learning), so once you've gotten 
   // these tests to pass using should syntax, refactor your tests to 
   // use either expect or should, but not both. 
-  var should = chai.should();
   
   it('has a prefix of 54 and a length of 16', function() {
     detectNetwork('5412345678901234').should.equal("MasterCard");
@@ -156,42 +155,93 @@ describe('Discover', function() {
     detectNetwork('6511123456789098765').should.equal('Discover');
   });
   for (var prefix = 644; prefix <= 649; prefix++) {
-    function(prefix) {
+    (function(prefix) {
       it('has a prefix of ' + prefix + ' and a length of 16', function() {
         detectNetwork(prefix + '1559988447733').should.equal('Discover');
       });
       it('has a prefix of ' + prefix + ' and a length of 19', function() {
         detectNetwork(prefix + "1123456789098765").should.equal('Discover');
       });
-    }
+    })(prefix)
   }
 });
 
 describe('Maestro', function() {
-  var should = chai.should();
-  var test1 = '501898765432';
-  var test2 = '502049083238';
-  var test3 = '503898765463';
-  var test4 = '630475849302';
+  var assert = chai.assert;
   for (var length = 12; length <= 19; length++) {
+   (function(length){
     it('has a prefix of 5018 and a length of ' + length, function(){
-      detectNetwork(test1).should.equal('Maestro');
+      assert.isTrue(detectNetwork(JSON.stringify(501898765432 * Math.pow(10,(length-12))))===('Maestro'));
     });
     it('has a prefix of 5020 and a length of '+length, function() {
-      detectNetwork(test2).should.equal('Maestro');
+      assert.isTrue(detectNetwork(JSON.stringify(502049083238 * Math.pow(10,(length-12))))===('Maestro'));
     });
     it('has a prefix of 5038 and a length of '+ length, function() {
-      detectNetwork(test3).should.equal('Meastro');
+      assert.isTrue(detectNetwork(JSON.stringify(503898765463 * Math.pow(10,(length-12))))===('Maestro'));
     });
     it('has a prefix of 6304 and a length of ' + length, function() {
-      detectNetwork(test4).should.equal('Meastro');
+      assert.isTrue(detectNetwork(JSON.stringify(630475849302 * Math.pow(10,(length-12))))===('Maestro'));
     });
-    test1 += "0";
-    test2 += "0";
-    test3 += "0";
-    test4 += "0";
+  })(length)
   };
 });
 
-describe('should support China UnionPay')
-describe('should support Switch')
+describe('should support China UnionPay', function () {
+  var assert = chai.assert;
+  for (var length = 16; length <= 19; length ++){
+    (function(length){
+      for (var prefix = 622126; prefix <= 622925; prefix++){
+        (function(prefix){
+          it('has a prefix of ' +prefix+ ' and a length of ' + length, function(){
+            assert.isTrue(detectNetwork(JSON.stringify(prefix * Math.pow(10,length-6)))===("China UnionPay"));
+          });
+        })(prefix)        
+      }
+      for (var pre = 624; pre <= 626; pre++){
+        (function(pre){
+          it('has a prefix of ' +pre+ ' and a length of ' + length, function(){
+            assert.isTrue(detectNetwork(JSON.stringify(pre * Math.pow(10,length-3)))===("China UnionPay"));
+          });
+        })(pre) 
+      }
+      for (var fix = 6282; fix <= 6288; fix++){
+        (function(fix){
+          it('has a prefix of ' +fix+ ' and a length of ' + length, function(){
+            assert.isTrue(detectNetwork(JSON.stringify(fix * Math.pow(10,length-4)))===("China UnionPay"));
+          });
+        })(fix) 
+      }
+    })(length)
+  }
+})
+
+describe('should support Switch', function() {
+  var assert = chai.assert;
+  for (var length = 16; length <= 19; length++) {
+    if (length !== 17){
+      (function(length){
+        it('has a prefix of 4903 and a length of ' + lenght, function(){
+          assert.isTrue(detectNetwork(JSON.stringify(4903 * Math.pow(10,length-4)))===("Switch"));
+        })
+        it('has a prefix of 4905 and a length of ' + lenght, function(){
+          assert.isTrue(detectNetwork(JSON.stringify(4905 * Math.pow(10,length-4)))===("Switch"));
+        })
+        it('has a prefix of 4911 and a length of ' + lenght, function(){
+          assert.isTrue(detectNetwork(JSON.stringify(4911 * Math.pow(10,length-4)))===("Switch"));
+        })
+        it('has a prefix of 4936 and a length of ' + lenght, function(){
+          assert.isTrue(detectNetwork(JSON.stringify(4936 * Math.pow(10,length-4)))===("Switch"));
+        })
+        it('has a prefix of 6333 and a length of ' + lenght, function(){
+          assert.isTrue(detectNetwork(JSON.stringify(6333 * Math.pow(10,length-4)))===("Switch"));
+        })
+        it('has a prefix of 6759 and a length of ' + lenght, function(){
+          assert.isTrue(detectNetwork(JSON.stringify(6759 * Math.pow(10,length-4)))===("Switch"));
+        })
+        it('has a prefix of 633110 and a length of ' + lenght, function(){
+          assert.isTrue(detectNetwork(JSON.stringify(633110 * Math.pow(10,length-6)))===("Switch"));
+        })
+      })
+    }
+  }
+})
